@@ -189,3 +189,323 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 ## RESTfull сервіс для управління даними
 
+## Сутності
+
+### completedSurvey
+```java
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "completed survey")
+public class completedSurvey {
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @Column(name = "topic", nullable = false)
+    private String topic;
+
+    @Column(name = "text", nullable = false)
+    private String text;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+}
+```
+
+### Expert
+```java
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "expert")
+public class Expert {
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @Column(name = "job", nullable = false)
+    private String job;
+
+    @Column(name = "username", nullable = false)
+    private String username;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+}
+```
+
+### Option
+```java
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "option")
+public class Option {
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @Column(name = "text", nullable = false)
+    private String text;
+
+    @ManyToOne
+    @JoinColumn(name = "question_id")
+    private Question question;
+}
+```
+
+### Question
+```java
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "question")
+public class Question {
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @Column(name = "text", nullable = false)
+    private String text;
+
+    @ManyToOne
+    @JoinColumn(name = "quiz_id")
+    private Quiz quiz;
+}
+```
+
+### Quiz
+```java
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "quiz")
+public class Quiz {
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @Column(name = "topic", nullable = false)
+    private String topic;
+
+    @Column(name = "text", nullable = false)
+    private String text;
+
+    @ManyToOne
+    @JoinColumn(name = "expetr_id")
+    private Expert expert;
+}
+```
+
+### Result
+```java
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "result")
+public class Result {
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @Column(name = "most_popular_option_id", nullable = false)
+    private Integer most_popular_option_id;
+
+    @Column(name = "text", nullable = false)
+    private String text;
+
+    @ManyToOne
+    @JoinColumn(name = "quiz_id")
+    private Quiz quiz;
+}
+```
+
+### selectedOption
+```java
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "selected option")
+public class selectedOption {
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "question_id")
+    private Question question;
+
+    @ManyToOne
+    @JoinColumn(name = "completed survey_id")
+    private completedSurvey completed_survey;
+}
+```
+
+### User
+```java
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "user")
+public class User {
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @Column(name = "username", nullable = false)
+    private String username;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "email", nullable = false)
+    private String email;
+}
+```
+
+## Репозиторії
+
+### completedSurveyRepository
+```java
+import com.example.demo.model.completedSurvey;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CompletedSurveyRepository extends JpaRepository<completedSurvey, Integer> {
+}
+```
+
+### ExpertRepository
+```java
+import com.example.demo.model.Expert;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ExpertRepository extends JpaRepository<Expert, Integer> {
+}
+```
+
+### OptionRepository
+```java
+import com.example.demo.model.Option;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OptionRepository extends JpaRepository<Option, Integer> {
+}
+```
+
+### QuestionRepository
+```java
+import com.example.demo.model.Question;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface QuestionRepository extends JpaRepository<Question, Integer> {
+}
+```
+
+### QuizRepository
+```java
+import com.example.demo.model.Quiz;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface QuizRepository extends JpaRepository<Quiz, Integer> {
+}
+```
+
+### ResultRepository
+```java
+import com.example.demo.model.Result;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ResultRepository extends JpaRepository<Result, Integer> {
+}
+```
+
+### selectedOptionRepository
+```java
+import com.example.demo.model.selectedOption;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface selectedOptionRepository extends JpaRepository<selectedOption, Integer> {
+}
+```
+
+### UserRepository
+```java
+import com.example.demo.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User, Integer> {
+}
+```
