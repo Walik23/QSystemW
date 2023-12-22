@@ -1,4 +1,13 @@
 # Тестування працездатності системи
 
-*В цьому розділі необхідно вказати засоби тестування, навести вихідні коди тестів та результати тестування.*
+## Створення користувача
+![створення користувача](https://github.com/Walik23/QSystemW/blob/master/docs/.vuepress/public/post.png)
 
+## Отримання інформації про користувача
+![отримання інформації про користувача](https://github.com/Walik23/QSystemW/blob/master/docs/.vuepress/public/get.png)
+
+## Видалення користувача
+![видалення користувача](https://github.com/Walik23/QSystemW/blob/master/docs/.vuepress/public/delete.png)
+
+## Повторне отримання інформації про користувача
+![повторне отримання інформації про користувача](https://github.com/Walik23/QSystemW/blob/master/docs/.vuepress/public/get2.png)
