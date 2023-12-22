@@ -192,7 +192,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 ## Сутності
 
-### completedSurvey
+### completed_survey
 ```java
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -205,8 +205,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "completed survey")
-public class completedSurvey {
+@Table(name = "completed_survey")
+public class completed_survey {
     @Id
     @GeneratedValue
     private Integer id;
@@ -219,11 +219,11 @@ public class completedSurvey {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private user user;
 }
 ```
 
-### Expert
+### expert
 ```java
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -237,7 +237,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "expert")
-public class Expert {
+public class expert {
     @Id
     @GeneratedValue
     private Integer id;
@@ -256,11 +256,11 @@ public class Expert {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private user user;
 }
 ```
 
-### Option
+### option
 ```java
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -274,7 +274,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "option")
-public class Option {
+public class option {
     @Id
     @GeneratedValue
     private Integer id;
@@ -284,11 +284,11 @@ public class Option {
 
     @ManyToOne
     @JoinColumn(name = "question_id")
-    private Question question;
+    private question question;
 }
 ```
 
-### Question
+### question
 ```java
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -302,7 +302,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "question")
-public class Question {
+public class question {
     @Id
     @GeneratedValue
     private Integer id;
@@ -312,11 +312,11 @@ public class Question {
 
     @ManyToOne
     @JoinColumn(name = "quiz_id")
-    private Quiz quiz;
+    private quiz quiz;
 }
 ```
 
-### Quiz
+### quiz
 ```java
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -330,7 +330,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "quiz")
-public class Quiz {
+public class quiz {
     @Id
     @GeneratedValue
     private Integer id;
@@ -341,13 +341,14 @@ public class Quiz {
     @Column(name = "text", nullable = false)
     private String text;
 
+
     @ManyToOne
-    @JoinColumn(name = "expetr_id")
-    private Expert expert;
+    @JoinColumn(name = "expert_id")
+    private expert expert;
 }
 ```
 
-### Result
+### result
 ```java
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -361,7 +362,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "result")
-public class Result {
+public class result {
     @Id
     @GeneratedValue
     private Integer id;
@@ -374,11 +375,11 @@ public class Result {
 
     @ManyToOne
     @JoinColumn(name = "quiz_id")
-    private Quiz quiz;
+    private quiz quiz;
 }
 ```
 
-### selectedOption
+### selected_option
 ```java
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -391,23 +392,23 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "selected option")
-public class selectedOption {
+@Table(name = "selected_option")
+public class selected_option {
     @Id
     @GeneratedValue
     private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "question_id")
-    private Question question;
+    private question question;
 
     @ManyToOne
     @JoinColumn(name = "completed survey_id")
-    private completedSurvey completed_survey;
+    private completed_survey completed_survey;
 }
 ```
 
-### User
+### user
 ```java
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -421,7 +422,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "user")
-public class User {
+public class user {
     @Id
     @GeneratedValue
     private Integer id;
@@ -441,72 +442,72 @@ public class User {
 
 ### completedSurveyRepository
 ```java
-import com.example.demo.model.completedSurvey;
+import com.example.demo.model.completed_survey;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CompletedSurveyRepository extends JpaRepository<completedSurvey, Integer> {
+public interface CompletedSurveyRepository extends JpaRepository<completed_survey, Integer> {
 }
 ```
 
 ### ExpertRepository
 ```java
-import com.example.demo.model.Expert;
+import com.example.demo.model.expert;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ExpertRepository extends JpaRepository<Expert, Integer> {
+public interface ExpertRepository extends JpaRepository<expert, Integer> {
 }
 ```
 
 ### OptionRepository
 ```java
-import com.example.demo.model.Option;
+import com.example.demo.model.option;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OptionRepository extends JpaRepository<Option, Integer> {
+public interface OptionRepository extends JpaRepository<option, Integer> {
 }
 ```
 
 ### QuestionRepository
 ```java
-import com.example.demo.model.Question;
+import com.example.demo.model.question;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface QuestionRepository extends JpaRepository<Question, Integer> {
+public interface QuestionRepository extends JpaRepository<question, Integer> {
 }
 ```
 
 ### QuizRepository
 ```java
-import com.example.demo.model.Quiz;
+import com.example.demo.model.quiz;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface QuizRepository extends JpaRepository<Quiz, Integer> {
+public interface QuizRepository extends JpaRepository<quiz, Integer> {
 }
 ```
 
 ### ResultRepository
 ```java
-import com.example.demo.model.Result;
+import com.example.demo.model.result;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ResultRepository extends JpaRepository<Result, Integer> {
+public interface ResultRepository extends JpaRepository<result, Integer> {
 }
 ```
 
 ### selectedOptionRepository
 ```java
-import com.example.demo.model.selectedOption;
+import com.example.demo.model.selected_option;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface selectedOptionRepository extends JpaRepository<selectedOption, Integer> {
+public interface selectedOptionRepository extends JpaRepository<selected_option, Integer> {
 }
 ```
 
 ### UserRepository
 ```java
-import com.example.demo.model.User;
+import com.example.demo.model.user;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<user, Integer> {
 }
 ```
