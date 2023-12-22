@@ -1,13 +1,13 @@
 # Тестування працездатності системи
 
 ## Створення користувача
-![створення користувача](https://github.com/Walik23/QSystemW/blob/master/docs/.vuepress/public/post.png)
+<img src=".\images\post.png">
 
 ## Отримання інформації про користувача
-![отримання інформації про користувача](https://github.com/Walik23/QSystemW/blob/master/docs/.vuepress/public/get.jpg)
+<img src=".\images\get.jpg">
 
 ## Видалення користувача
-![видалення користувача](https://github.com/Walik23/QSystemW/blob/master/docs/.vuepress/public/delete.png)
+<img src=".\images\delete.png">
 
 ## Повторне отримання інформації про користувача
-![повторне отримання інформації про користувача](https://github.com/Walik23/QSystemW/blob/master/docs/.vuepress/public/get2.png)
+<img src=".\images\get2.png">
